@@ -28,6 +28,41 @@ pool.query(`CREATE TABLE IF NOT EXISTS products (
 
 app.get("/api/config", (_, res) => res.json({ clientId: CLIENT_ID }));
 
+pool.query(`CREATE TABLE IF NOT EXISTS events (
+  id SERIAL PRIMARY KEY, type TEXT NOT NULL, name TEXT DEFAULT '', vid TEXT DEFAULT '',
+  created_at TIMESTAMPTZ DEFAULT now())`).catch(console.error);
+
+app.post("/api/track", async (req, res) => {
+  const { type, name, vid } = req.body || {};
+  if (["visit", "order", "checkout", "booking"].includes(type))
+    await pool.query("INSERT INTO events(type,name,vid) VALUES($1,$2,$3)",
+      [type, String(name || "").slice(0, 100), String(vid || "").slice(0, 40)]).catch(() => {});
+  res.json({ ok: true });
+});
+
+app.get("/api/stats", auth, async (_, res) => {
+  const L = "(created_at AT TIME ZONE 'Africa/Lagos')::date";
+  const T = "(now() AT TIME ZONE 'Africa/Lagos')::date";
+  const ORD = "type IN ('order','checkout')";
+  const t = await pool.query(`SELECT
+    count(*) FILTER (WHERE type='visit') visits_all,
+    count(DISTINCT vid) FILTER (WHERE type='visit') people_all,
+    count(*) FILTER (WHERE type='visit' AND ${L}=${T}) visits_today,
+    count(DISTINCT vid) FILTER (WHERE type='visit' AND ${L}=${T}) people_today,
+    count(DISTINCT vid) FILTER (WHERE type='visit' AND created_at > now()-interval '7 days') people_7,
+    count(*) FILTER (WHERE ${ORD}) orders_all,
+    count(*) FILTER (WHERE ${ORD} AND ${L}=${T}) orders_today,
+    count(*) FILTER (WHERE ${ORD} AND created_at > now()-interval '7 days') orders_7,
+    count(*) FILTER (WHERE type='booking') bookings_all FROM events`);
+  const days = await pool.query(`SELECT ${L} AS day,
+    count(DISTINCT vid) FILTER (WHERE type='visit') people,
+    count(*) FILTER (WHERE ${ORD}) orders FROM events
+    WHERE created_at > now()-interval '7 days' GROUP BY 1 ORDER BY 1 DESC`);
+  const top = await pool.query(`SELECT name, count(*) c FROM events WHERE type='order' AND name<>''
+    GROUP BY name ORDER BY c DESC LIMIT 5`);
+  res.json({ totals: t.rows[0], days: days.rows, top: top.rows });
+});
+
 app.post("/api/google-login", async (req, res) => {
   try {
     const r = await fetch("https://oauth2.googleapis.com/tokeninfo?id_token=" + encodeURIComponent(req.body.credential || ""));
