@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Admin | House of Favé</title>
+<style>
+*{box-sizing:border-box}body{font-family:system-ui,sans-serif;background:#faf6f0;margin:0;padding:1rem;color:#1a1214}
+.box{max-width:640px;margin:auto}h1{color:#3d0010;font-weight:600}
+input,select,textarea,button{width:100%;padding:.7rem;margin:.3rem 0;font:inherit;border:1px solid #c9a96e;border-radius:6px;background:#fff}
+button{background:#3d0010;color:#fff;border:0;cursor:pointer}button.alt{background:#fff;color:#3d0010;border:1px solid #3d0010}
+.row{display:flex;gap:.5rem;align-items:center}.row>*{width:auto}.row input[type=checkbox]{width:auto}
+.item{display:flex;gap:.7rem;align-items:center;background:#fff;padding:.6rem;margin:.5rem 0;border-radius:6px}
+.item img,.item i{width:56px;height:56px;object-fit:cover;border-radius:6px;background:#5a0a1d}.item div{flex:1}.item button{width:auto;padding:.4rem .8rem}
+#msg{color:#3d0010;min-height:1.4em}
+</style></head><body><div class="box">
+<h1>House of Favé Admin</h1><p id="msg"></p>
+<div id="login"><p>Sign in with an approved Google account.</p><div id="g"></div></div>
+<div id="app" hidden>
+  <form id="f"><b id="ft">Add product</b>
+    <input id="name" placeholder="Product name" required>
+    <select id="cat"><option>Fashion</option><option>Lashes</option><option>Nails</option><option>Beauty</option><option>Photography</option></select>
+    <input id="price" type="number" min="0" placeholder="Price in ₦" required>
+    <textarea id="desc" rows="3" placeholder="Description"></textarea>
+    <input id="img" type="file" accept="image/*">
+    <label class="row"><input id="so" type="checkbox"> Mark as sold out</label>
+    <button>Save product</button><button type="button" class="alt" id="cancel" hidden>Cancel edit</button>
+  </form>
+  <h2>Your products</h2><div id="list"></div>
+  <button class="alt" id="out">Log out</button>
+</div></div>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+const $=id=>document.getElementById(id);
+let token=sessionStorage.getItem("t"),items=[],editId=null,image="";
+const msg=t=>$("msg").textContent=t||"";
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+async function api(url,method="GET",body){
+  const r=await fetch(url,{method,headers:{"Content-Type":"application/json",Authorization:"Bearer "+token},body:body&&JSON.stringify(body)});
+  if(r.status===401){logout();throw new Error("Please log in again")}
+  return r.json();
+}
+function logout(){sessionStorage.removeItem("t");token=null;$("app").hidden=true;$("login").hidden=false}
+async function load(){$("login").hidden=true;$("app").hidden=false;items=await fetch("/api/products").then(r=>r.json());show()}
+function show(){$("list").innerHTML=items.map(p=>`<div class="item">${p.image?`<img src="${esc(p.image)}">`:"<i></i>"}<div><b>${esc(p.name)}</b><br>${esc(p.category)} · ₦${Number(p.price).toLocaleString()}${p.sold_out?" · Sold out":""}</div><button data-e="${p.id}">Edit</button><button data-d="${p.id}">Delete</button></div>`).join("")||"<p>No products yet.</p>"}
+function gcb(r){fetch("/api/google-login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({credential:r.credential})}).then(async x=>{const d=await x.json();if(!x.ok)return msg(d.error);token=d.token;sessionStorage.setItem("t",token);msg();load()})}
+window.onload=async()=>{const c=await fetch("/api/config").then(r=>r.json());if(!c.clientId)return msg("Server is missing GOOGLE_CLIENT_ID");google.accounts.id.initialize({client_id:c.clientId,callback:gcb});google.accounts.id.renderButton($("g"),{theme:"outline",size:"large",text:"signin_with"})};
+$("img").onchange=e=>{const f=e.target.files[0];if(!f)return;const im=new Image();im.onload=()=>{const s=Math.min(1,800/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=im.width*s;c.height=im.height*s;c.getContext("2d").drawImage(im,0,0,c.width,c.height);image=c.toDataURL("image/jpeg",.75)};im.src=URL.createObjectURL(f)};
+function reset(){editId=null;image="";$("f").reset();$("ft").textContent="Add product";$("cancel").hidden=true}
+$("cancel").onclick=reset;
+$("f").onsubmit=async e=>{e.preventDefault();msg();
+  const body={name:$("name").value,category:$("cat").value,price:$("price").value,description:$("desc").value,image,sold_out:$("so").checked};
+  try{const p=editId?await api("/api/products/"+editId,"PUT",body):await api("/api/products","POST",body);
+    items=editId?items.map(i=>i.id===p.id?p:i):[p,...items];show();reset();msg("Saved. It is now live on the website.")}catch(x){msg(x.message)}};
+$("list").onclick=async e=>{const d=e.target.dataset;
+  if(d.d&&confirm("Delete this product?")){await api("/api/products/"+d.d,"DELETE");items=items.filter(i=>i.id!=d.d);show()}
+  if(d.e){const p=items.find(i=>i.id==d.e);editId=p.id;image=p.image;$("name").value=p.name;$("cat").value=p.category;$("price").value=p.price;$("desc").value=p.description;$("so").checked=p.sold_out;$("ft").textContent="Edit product";$("cancel").hidden=false;scrollTo(0,0)}};
+$("out").onclick=logout;
+if(token)load().catch(logout);
+</script></body></html>
