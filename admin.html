@@ -12,10 +12,12 @@ button{background:#3d0010;color:#fff;border:0;cursor:pointer}button.alt{backgrou
 .item{display:flex;gap:.7rem;align-items:center;background:#fff;padding:.6rem;margin:.5rem 0;border-radius:6px}
 .item img,.item i{width:56px;height:56px;object-fit:cover;border-radius:6px;background:#5a0a1d}.item div{flex:1}.item button{width:auto;padding:.4rem .8rem}
 #msg{color:#3d0010;min-height:1.4em}
+.st{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:.6rem 0}.st div{background:#fff;border:1px solid #e8dfd2;border-radius:8px;padding:.7rem}.st b{display:block;font-size:1.6rem;color:#3d0010}.st small{opacity:.7}table{width:100%;border-collapse:collapse;background:#fff;margin:.5rem 0}td,th{padding:.45rem;border-bottom:1px solid #eee;text-align:left;font-size:.9rem}
 </style></head><body><div class="box">
 <h1>House of Favé Admin</h1><p id="msg"></p>
 <div id="login"><p>Sign in with an approved Google account.</p><div id="g"></div></div>
 <div id="app" hidden>
+  <h2>Website activity</h2><div id="stats">Loading...</div><button class="alt" id="rs">Refresh stats</button>
   <form id="f"><b id="ft">Add product</b>
     <input id="name" placeholder="Product name" required>
     <select id="cat"><option>Fashion</option><option>Lashes</option><option>Nails</option><option>Beauty</option><option>Photography</option></select>
@@ -40,7 +42,14 @@ async function api(url,method="GET",body){
   return r.json();
 }
 function logout(){localStorage.removeItem("t");token=null;$("app").hidden=true;$("login").hidden=false}
-async function load(){$("login").hidden=true;$("app").hidden=false;items=await fetch("/api/products").then(r=>r.json());show()}
+async function stats(){try{const d=await api("/api/stats"),t=d.totals,n=k=>Number(t[k]||0);
+const conv=n("people_all")?Math.round(n("orders_all")/n("people_all")*100):0;
+$("stats").innerHTML=`<div class="st"><div><b>${n("people_today")}</b><small>Visitors today</small></div><div><b>${n("orders_today")}</b><small>Order clicks today</small></div><div><b>${n("people_7")}</b><small>Visitors, last 7 days</small></div><div><b>${n("orders_7")}</b><small>Order clicks, last 7 days</small></div><div><b>${n("people_all")}</b><small>Total visitors</small></div><div><b>${n("orders_all")}</b><small>Total order clicks</small></div><div><b>${n("bookings_all")}</b><small>Booking requests</small></div><div><b>${conv}%</b><small>Order clicks per visitor</small></div></div>
+<table><tr><th>Day</th><th>Visitors</th><th>Orders</th></tr>${d.days.map(r=>`<tr><td>${esc(String(r.day).slice(0,10))}</td><td>${r.people}</td><td>${r.orders}</td></tr>`).join("")||"<tr><td colspan=3>No data yet</td></tr>"}</table>
+${d.top.length?`<b>Most ordered</b><table>${d.top.map(r=>`<tr><td>${esc(r.name)}</td><td>${r.c}</td></tr>`).join("")}</table>`:""}
+<small>A visitor is one device or browser. An order click means someone tapped the WhatsApp order button, not that they paid.</small>`}catch(x){$("stats").textContent="Could not load stats"}}
+$("rs").onclick=stats;
+async function load(){stats();$("login").hidden=true;$("app").hidden=false;items=await fetch("/api/products").then(r=>r.json());show()}
 function show(){$("list").innerHTML=items.map(p=>`<div class="item">${p.image?`<img src="${esc(p.image)}">`:"<i></i>"}<div><b>${esc(p.name)}</b><br>${esc(p.category)} · ₦${Number(p.price).toLocaleString()}${p.sold_out?" · Sold out":""}</div><button data-e="${p.id}">Edit</button><button data-d="${p.id}">Delete</button></div>`).join("")||"<p>No products yet.</p>"}
 function gcb(r){fetch("/api/google-login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({credential:r.credential})}).then(async x=>{const d=await x.json();if(!x.ok)return msg(d.error);token=d.token;localStorage.setItem("t",token);msg();load()})}
 window.onload=async()=>{const c=await fetch("/api/config").then(r=>r.json());if(!c.clientId)return msg("Server is missing GOOGLE_CLIENT_ID");google.accounts.id.initialize({client_id:c.clientId,callback:gcb});google.accounts.id.renderButton($("g"),{theme:"outline",size:"large",text:"signin_with"})};
