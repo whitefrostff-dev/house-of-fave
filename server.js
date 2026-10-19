@@ -35,7 +35,7 @@ app.post("/api/google-login", async (req, res) => {
     const email = String(g.email || "").toLowerCase();
     if (!r.ok || g.aud !== CLIENT_ID || g.email_verified !== "true" || !ADMINS.includes(email))
       return res.status(403).json({ error: "This Google account is not allowed" });
-    const body = Buffer.from(JSON.stringify({ e: email, x: Date.now() + 12 * 36e5 })).toString("base64url");
+    const body = Buffer.from(JSON.stringify({ e: email, x: Date.now() + 30 * 24 * 36e5 })).toString("base64url");
     res.json({ token: body + "." + sign(body), email });
   } catch { res.status(500).json({ error: "Google sign-in failed" }); }
 });
