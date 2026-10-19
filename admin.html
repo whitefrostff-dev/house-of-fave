@@ -31,7 +31,7 @@ button{background:#3d0010;color:#fff;border:0;cursor:pointer}button.alt{backgrou
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
 const $=id=>document.getElementById(id);
-let token=sessionStorage.getItem("t"),items=[],editId=null,image="";
+let token=localStorage.getItem("t"),items=[],editId=null,image="";
 const msg=t=>$("msg").textContent=t||"";
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 async function api(url,method="GET",body){
@@ -39,10 +39,10 @@ async function api(url,method="GET",body){
   if(r.status===401){logout();throw new Error("Please log in again")}
   return r.json();
 }
-function logout(){sessionStorage.removeItem("t");token=null;$("app").hidden=true;$("login").hidden=false}
+function logout(){localStorage.removeItem("t");token=null;$("app").hidden=true;$("login").hidden=false}
 async function load(){$("login").hidden=true;$("app").hidden=false;items=await fetch("/api/products").then(r=>r.json());show()}
 function show(){$("list").innerHTML=items.map(p=>`<div class="item">${p.image?`<img src="${esc(p.image)}">`:"<i></i>"}<div><b>${esc(p.name)}</b><br>${esc(p.category)} · ₦${Number(p.price).toLocaleString()}${p.sold_out?" · Sold out":""}</div><button data-e="${p.id}">Edit</button><button data-d="${p.id}">Delete</button></div>`).join("")||"<p>No products yet.</p>"}
-function gcb(r){fetch("/api/google-login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({credential:r.credential})}).then(async x=>{const d=await x.json();if(!x.ok)return msg(d.error);token=d.token;sessionStorage.setItem("t",token);msg();load()})}
+function gcb(r){fetch("/api/google-login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({credential:r.credential})}).then(async x=>{const d=await x.json();if(!x.ok)return msg(d.error);token=d.token;localStorage.setItem("t",token);msg();load()})}
 window.onload=async()=>{const c=await fetch("/api/config").then(r=>r.json());if(!c.clientId)return msg("Server is missing GOOGLE_CLIENT_ID");google.accounts.id.initialize({client_id:c.clientId,callback:gcb});google.accounts.id.renderButton($("g"),{theme:"outline",size:"large",text:"signin_with"})};
 $("img").onchange=e=>{const f=e.target.files[0];if(!f)return;const im=new Image();im.onload=()=>{const s=Math.min(1,800/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=im.width*s;c.height=im.height*s;c.getContext("2d").drawImage(im,0,0,c.width,c.height);image=c.toDataURL("image/jpeg",.75)};im.src=URL.createObjectURL(f)};
 function reset(){editId=null;image="";$("f").reset();$("ft").textContent="Add product";$("cancel").hidden=true}
