@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>House of Favé | Fashion, Lashes, Nails & Photography in Owerri</title>
+<meta name="description" content="Where Beauty Meets Style. Shop fashion and beauty, or book lashes, nails and photography at House of Favé, Owerri.">
+<meta name="theme-color" content="#3d0010">
+<meta property="og:title" content="House of Favé"><meta property="og:description" content="Where Beauty Meets Style.">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--wine:#3d0010;--wine2:#5a0a1d;--ivory:#faf6f0;--gold:#c9a96e;--ink:#1a1214;--line:#e8dfd2}
+*{box-sizing:border-box;margin:0}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:Montserrat,sans-serif;font-weight:300;background:var(--ivory);color:var(--ink);line-height:1.65}
+a{color:inherit}button,input,select,textarea{font:inherit;color:inherit}
+nav{position:sticky;top:0;z-index:20;background:rgba(61,0,16,.94);backdrop-filter:blur(8px);color:var(--ivory);display:flex;align-items:center;gap:1.2rem;padding:.7rem 1.2rem}
+.logo{font-family:'Great Vibes',cursive;font-size:1.9rem;text-decoration:none;margin-right:auto}
+nav a.l{text-decoration:none;font-size:.85rem}nav .ic{background:none;border:0;cursor:pointer;color:var(--ivory);font-size:1.05rem;position:relative}
+.cnt{position:absolute;top:-8px;right:-10px;background:var(--gold);color:var(--wine);border-radius:50%;font-size:.65rem;min-width:17px;height:17px;display:grid;place-items:center;font-weight:500}
+@media(max-width:640px){nav a.l{display:none}}
+.hero{background:radial-gradient(circle at 70% 20%,var(--wine2),var(--wine) 60%);color:var(--ivory);min-height:88svh;display:grid;place-items:center;text-align:center;padding:3rem 1.2rem}
+.hero h1{font-family:'Great Vibes',cursive;font-weight:400;font-size:clamp(3.6rem,15vw,8rem);line-height:1.05;animation:rise 1.1s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}}@media(prefers-reduced-motion:reduce){.hero h1{animation:none}}
+.hero em{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold)}
+.hero p{max-width:34ch;margin:.8rem auto 0;opacity:.85}
+.btns{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;margin-top:2rem}
+.btn{display:inline-block;padding:.85rem 1.6rem;border:1px solid var(--gold);text-decoration:none;font-size:.85rem;cursor:pointer;background:none;border-radius:2px}
+.btn.fill{background:var(--gold);color:var(--wine);font-weight:500}.btn.dark{background:var(--wine);color:var(--ivory);border-color:var(--wine)}
+.strip{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem 2rem;padding:1rem;background:var(--gold);color:var(--wine);font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600}
+section{padding:4.5rem 1.2rem;max-width:1140px;margin:auto}
+h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:2.4rem;color:var(--wine);line-height:1.15;margin-bottom:.4rem}
+.sub{opacity:.75;margin-bottom:1.6rem}
+.tools{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.2rem}
+.tools input,.tools select{padding:.65rem .9rem;border:1px solid var(--line);background:#fff;border-radius:2px}.tools input{flex:1;min-width:180px}
+.chips{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.chips button{padding:.45rem 1.1rem;border:1px solid var(--wine);background:none;color:var(--wine);cursor:pointer;border-radius:30px}
+.chips button.on{background:var(--wine);color:var(--ivory)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.4rem}
+.card{background:#fff;position:relative;display:flex;flex-direction:column;border:1px solid var(--line)}
+.card .im{aspect-ratio:4/5;background:linear-gradient(135deg,var(--wine2),var(--wine));overflow:hidden;cursor:pointer}
+.card img{width:100%;height:100%;object-fit:cover;transition:transform .5s}.card:hover img{transform:scale(1.04)}
+.card .b{padding:1rem;display:flex;flex-direction:column;gap:.3rem;flex:1}
+.card h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;line-height:1.2}
+.price{color:var(--wine);font-weight:500}.tag{font-size:.75rem;opacity:.65}
+.card .row{display:flex;gap:.5rem;margin-top:auto;padding-top:.6rem}.card .row .btn{flex:1;padding:.6rem;text-align:center;font-size:.8rem}
+.heart{position:absolute;top:.6rem;right:.6rem;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.9);cursor:pointer;font-size:1.1rem;color:var(--wine)}
+.badge{position:absolute;top:.6rem;left:.6rem;background:var(--wine);color:#fff;font-size:.7rem;padding:.2rem .6rem}
+.sold{opacity:.55}
+.svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;margin-bottom:2.5rem}
+.svc div{padding:1.4rem;border:1px solid var(--gold);background:#fff}.svc b{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--wine);display:block}
+form.bk{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;background:var(--wine);padding:1.6rem;color:var(--ivory)}
+form.bk h3{grid-column:1/-1;font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600}
+form.bk input,form.bk select,form.bk textarea,form.bk button{padding:.75rem;border:0;border-radius:2px;color:var(--ink);background:#fff}
+form.bk textarea,form.bk button,.full{grid-column:1/-1}form.bk button{background:var(--gold);color:var(--wine);font-weight:500;cursor:pointer}
+@media(max-width:560px){form.bk{grid-template-columns:1fr}}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.6rem}
+.gal img{width:100%;aspect-ratio:1;object-fit:cover;cursor:pointer}
+.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem}.why p{opacity:.8}
+.why b{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--wine);display:block}
+details{border-bottom:1px solid var(--line);padding:1rem 0}summary{cursor:pointer;font-weight:500}details p{margin-top:.5rem;opacity:.8}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:2rem}@media(max-width:700px){.contact{grid-template-columns:1fr}}
+iframe{width:100%;height:300px;border:0}
+footer{background:var(--wine);color:var(--ivory);text-align:center;padding:3rem 1rem 5rem}
+footer .logo{font-size:2.6rem;display:block;margin:0}footer p{opacity:.85}
+.dev{display:inline-block;margin-top:1.4rem;padding:.7rem 1.4rem;border:1px solid var(--gold);color:var(--gold);text-decoration:none;font-size:.85rem}
+.fab{position:fixed;right:1rem;bottom:1rem;z-index:15;background:#25d366;color:#fff;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;text-decoration:none;font-size:1.5rem;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+dialog{border:0;padding:0;max-width:min(820px,94vw);width:100%;background:#fff;margin:auto}dialog::backdrop{background:rgba(20,0,6,.7)}
+.pm{display:grid;grid-template-columns:1fr 1fr}@media(max-width:640px){.pm{grid-template-columns:1fr}}
+.pm img,.pm .ph{width:100%;height:100%;min-height:260px;object-fit:cover;background:var(--wine2)}.pm .t{padding:1.5rem;display:flex;flex-direction:column;gap:.7rem}
+.x{position:absolute;top:.5rem;right:.8rem;background:none;border:0;font-size:1.8rem;cursor:pointer;color:var(--wine);z-index:2}
+.qty{display:inline-flex;border:1px solid var(--line)}.qty button{width:34px;background:none;border:0;cursor:pointer;font-size:1.1rem}.qty span{min-width:34px;text-align:center;line-height:34px}
+#drawer{position:fixed;top:0;right:0;height:100%;width:min(400px,100%);background:#fff;z-index:30;transform:translateX(100%);transition:transform .3s;display:flex;flex-direction:column;box-shadow:-8px 0 30px rgba(0,0,0,.25)}
+#drawer.open{transform:none}#drawer header{padding:1rem 1.2rem;background:var(--wine);color:var(--ivory);display:flex;justify-content:space-between;align-items:center;font-family:'Cormorant Garamond',serif;font-size:1.5rem}
+#drawer header button{background:none;border:0;color:var(--ivory);font-size:1.6rem;cursor:pointer}#items{flex:1;overflow:auto;padding:1rem}
+.ci{display:flex;gap:.8rem;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--line)}.ci>div{flex:1}.ci img{width:54px;height:66px;object-fit:cover;background:var(--wine2)}
+#drawer footer{padding:1rem;background:#fff;color:var(--ink);text-align:left}
+.empty{opacity:.7;padding:1rem 0}
+.ann{background:var(--gold);color:var(--wine);text-align:center;padding:.45rem 1rem;font-size:.82rem;font-weight:500}.ann a{text-decoration:underline}
+.soc{display:flex;gap:.8rem;justify-content:center;margin-top:1rem}.soc a{border:1px solid var(--gold);color:var(--gold);padding:.55rem 1.1rem;text-decoration:none;font-size:.85rem}
+.tk{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}@media(max-width:760px){.tk{grid-template-columns:1fr}}
+.tk .box{display:flex;justify-content:center;min-height:200px}.tk blockquote{margin:0!important}
+#top2{position:fixed;left:1rem;bottom:1rem;z-index:15;width:44px;height:44px;border-radius:50%;border:1px solid var(--gold);background:var(--wine);color:var(--gold);cursor:pointer;font-size:1.1rem;display:none}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BeautySalon","name":"House of Favé","slogan":"Where Beauty Meets Style","telephone":"+2349128410007","email":"favouranigbogu44@gmail.com","address":{"@type":"PostalAddress","streetAddress":"Poly Nekede","addressLocality":"Owerri","addressRegion":"Imo","addressCountry":"NG"},"sameAs":["https://www.tiktok.com/@thehouseoffave_owerri_"]}</script>
+</head><body>
+<div class="ann">New drops and styles daily on TikTok. <a href="https://www.tiktok.com/@thehouseoffave_owerri_" target="_blank" rel="noopener">Follow @thehouseoffave_owerri_</a></div>
+<nav><a class="logo" href="#top">House of Favé</a><a class="l" href="#shop">Shop</a><a class="l" href="#book">Book</a><a class="l" href="#gallery">Gallery</a><a class="l" href="#tiktok">TikTok</a><a class="l" href="#contact">Contact</a>
+<button class="ic" id="wbtn" aria-label="Saved items">♡<span class="cnt" id="wc">0</span></button>
+<button class="ic" id="cbtn" aria-label="Open cart">🛍<span class="cnt" id="cc">0</span></button></nav>
+<header class="hero" id="top"><div>
+<h1>House of Favé</h1><em>Where Beauty Meets Style</em>
+<p>Fashion, lashes, nails and photography in Owerri. Shop online and order in one tap on WhatsApp.</p>
+<div class="btns"><a class="btn fill" href="#shop">Explore collection</a><a class="btn" style="color:#faf6f0" href="#book">Book an appointment</a></div></div></header>
+<div class="strip"><span>Fashion</span><span>Lashes</span><span>Nails</span><span>Beauty</span><span>Photography</span></div>
+
+<section id="shop"><h2>The collection</h2><p class="sub">Tap any piece for details, add it to your bag, then send one WhatsApp order.</p>
+<div class="tools"><input id="q" type="search" placeholder="Search products"><select id="sort"><option value="new">Newest</option><option value="lo">Price: low to high</option><option value="hi">Price: high to low</option></select></div>
+<div class="chips" id="chips"></div><div class="grid" id="grid"><p class="empty">Loading the collection...</p></div></section>
+
+<section id="book"><h2>Book a service</h2><p class="sub">Choose a service and time. We confirm your slot on WhatsApp.</p>
+<div class="svc"><div><b>Lashes</b>Classic and volume sets.</div><div><b>Nails</b>Manicure, gel and custom designs.</div><div><b>Photography</b>Portraits, brand and event shoots.</div><div><b>Fashion</b>Styling and custom orders.</div></div>
+<form class="bk" id="bk"><h3>Request an appointment</h3>
+<input id="bn" placeholder="Your name" required><select id="bs"><option>Lashes</option><option>Nails</option><option>Photography</option><option>Fashion</option><option>Beauty</option></select>
+<input id="bd" type="date" required><select id="bt"><option>Morning</option><option>Afternoon</option><option>Evening</option></select>
+<textarea id="bo" rows="3" placeholder="Anything we should know? (style, location, number of people)"></textarea><button>Send request on WhatsApp</button></form></section>
+
+<section id="gallery" hidden><h2>Photography</h2><p class="sub">Recent work from our studio.</p><div class="gal" id="gal"></div></section>
+
+<section><div class="why"><div><b>Quality you can see</b><p>Every piece and service is chosen to make you feel put together.</p></div><div><b>Fast replies</b><p>Our WhatsApp is open around the clock, so you can ask anytime.</p></div><div><b>One place for it all</b><p>Outfit, lashes, nails and photos from one trusted house.</p></div></div></section>
+
+<section id="tiktok"><div class="tk"><div><h2>See us on TikTok</h2><p class="sub">Behind the scenes, new styles, lash and nail transformations. Follow to see it first.</p>
+<a class="btn dark" href="https://www.tiktok.com/@thehouseoffave_owerri_" target="_blank" rel="noopener">Follow on TikTok</a></div>
+<div class="box"><blockquote class="tiktok-embed" cite="https://www.tiktok.com/@thehouseoffave_owerri_" data-unique-id="thehouseoffave_owerri_" data-embed-type="creator" style="max-width:780px;min-width:288px"><section><a target="_blank" href="https://www.tiktok.com/@thehouseoffave_owerri_">@thehouseoffave_owerri_</a></section></blockquote></div></div></section>
+
+<section><h2>Questions</h2>
+<details><summary>How do I order?</summary><p>Add items to your bag and tap Order on WhatsApp. A message with your list opens in WhatsApp. Press send and we will confirm availability and payment.</p></details>
+<details><summary>How do I book lashes, nails or a shoot?</summary><p>Fill the booking form above. It opens WhatsApp with your chosen service and date.</p></details>
+<details><summary>Where are you located?</summary><p>Poly Nekede, Owerri, Imo State, Nigeria.</p></details>
+<details><summary>Is a product available?</summary><p>Products marked Sold out are unavailable. For anything else, message us to confirm stock.</p></details></section>
+
+<section id="contact"><div class="contact"><div><h2>Visit or message us</h2><p class="sub">Poly Nekede, Owerri, Imo State, Nigeria</p>
+<p><a href="https://wa.me/2349128410007">WhatsApp: +234 912 841 0007</a></p><p><a href="https://www.tiktok.com/@thehouseoffave_owerri_" target="_blank" rel="noopener">TikTok: @thehouseoffave_owerri_</a></p><p><a href="mailto:favouranigbogu44@gmail.com">favouranigbogu44@gmail.com</a></p>
+<div class="btns" style="justify-content:flex-start"><a class="btn dark" href="https://wa.me/2349128410007" target="_blank" rel="noopener">Chat on WhatsApp</a></div></div>
+<iframe title="Map" loading="lazy" src="https://www.google.com/maps?q=Poly+Nekede+Owerri+Imo+Nigeria&output=embed"></iframe></div></section>
+
+<footer><a class="logo" href="#top">House of Favé</a><p>Where Beauty Meets Style</p><div class="soc"><a href="https://www.tiktok.com/@thehouseoffave_owerri_" target="_blank" rel="noopener">TikTok</a><a href="https://wa.me/2349128410007" target="_blank" rel="noopener">WhatsApp</a></div><p style="margin-top:1rem;font-size:.85rem">© <span id="yr"></span> House of Favé. Website by Nwodili Convenant.</p>
+<a class="dev" target="_blank" rel="noopener" href="https://wa.me/2347077187114?text=Hello%2C%20I%20saw%20the%20House%20of%20Fav%C3%A9%20website%20and%20I%27d%20like%20one%20for%20my%20business.">Contact the developer</a></footer>
+<a class="fab" href="https://wa.me/2349128410007" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">✆</a>
+
+<button id="top2" aria-label="Back to top">↑</button>
+<dialog id="dlg"><button class="x" id="dx" aria-label="Close">×</button><div class="pm" id="pm"></div></dialog>
+<aside id="drawer" aria-label="Cart"><header>Your bag<button id="cx" aria-label="Close">×</button></header><div id="items"></div>
+<footer><p style="display:flex;justify-content:space-between;margin-bottom:.8rem"><b>Total</b><b id="tot">₦0</b></p><a class="btn dark" id="chk" style="display:block;text-align:center" target="_blank" rel="noopener">Order on WhatsApp</a></footer></aside>
+
+<script>
+const WA="2349128410007",CATS=["All","Fashion","Lashes","Nails","Beauty","Photography"];
+const $=id=>document.getElementById(id),fmt=n=>"₦"+Number(n).toLocaleString();
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const wa=t=>`https://wa.me/${WA}?text=${encodeURIComponent(t)}`;
+const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch{return d}},sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+let all=[],cat="All",cart=ld("hf_cart",{}),wish=ld("hf_wish",[]),open=null,qty=1;
+const find=id=>all.find(p=>p.id==id);
+function grid(){
+  $("chips").innerHTML=CATS.map(c=>`<button class="${c===cat?"on":""}" data-c="${c}">${c}</button>`).join("");
+  const q=$("q").value.trim().toLowerCase(),s=$("sort").value;
+  let l=all.filter(p=>(cat==="All"||p.category===cat)&&(!q||(p.name+p.description).toLowerCase().includes(q)));
+  if(s==="lo")l.sort((a,b)=>a.price-b.price);if(s==="hi")l.sort((a,b)=>b.price-a.price);
+  $("grid").innerHTML=l.length?l.map(p=>`<article class="card ${p.sold_out?"sold":""}"><div class="im" data-o="${p.id}">${p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy">`:""}</div>${p.sold_out?'<span class="badge">Sold out</span>':""}<button class="heart" data-w="${p.id}" aria-label="Save">${wish.includes(p.id)?"♥":"♡"}</button><div class="b"><span class="tag">${esc(p.category)}</span><h3>${esc(p.name)}</h3><span class="price">${fmt(p.price)}</span><div class="row"><button class="btn" data-o="${p.id}">Details</button>${p.sold_out?"":`<button class="btn dark" data-a="${p.id}">Add to bag</button>`}</div></div></article>`).join(""):'<p class="empty">No products match. Try another category or search.</p>';
+  const g=all.filter(p=>p.category==="Photography"&&p.image);$("gallery").hidden=!g.length;$("gal").innerHTML=g.map(p=>`<img src="${esc(p.image)}" alt="${esc(p.name)}" data-o="${p.id}" loading="lazy">`).join("");
+}
+function badges(){$("cc").textContent=Object.values(cart).reduce((a,b)=>a+b,0);$("wc").textContent=wish.length}
+function cartUI(){
+  const ids=Object.keys(cart).filter(i=>find(i));let t=0,lines=[];
+  $("items").innerHTML=ids.length?ids.map(i=>{const p=find(i),n=cart[i];t+=p.price*n;lines.push(`• ${p.name} x${n} - ${fmt(p.price*n)}`);return `<div class="ci">${p.image?`<img src="${esc(p.image)}" alt="">`:"<span></span>"}<div><b>${esc(p.name)}</b><br>${fmt(p.price)}</div><div class="qty"><button data-m="${i}">−</button><span>${n}</span><button data-p="${i}">+</button></div></div>`}).join(""):'<p class="empty">Your bag is empty.</p>';
+  $("tot").textContent=fmt(t);const c=$("chk");c.style.display=ids.length?"block":"none";
+  c.href=wa(`Hello HOUSE OF FAVÉ! ❤️\nI'd like to order:\n\n${lines.join("\n")}\n\n💰 Total: ${fmt(t)}\n\nPlease confirm availability and how to pay. ✨`);badges();sv("hf_cart",cart)
+}
+function add(id,n=1){cart[id]=(cart[id]||0)+n;cartUI();$("drawer").classList.add("open")}
+function show(id){const p=find(id);open=p;qty=1;
+  $("pm").innerHTML=`${p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}">`:'<div class="ph"></div>'}<div class="t"><span class="tag">${esc(p.category)}</span><h2 style="font-size:2rem">${esc(p.name)}</h2><span class="price" style="font-size:1.3rem">${p.sold_out?"Sold out":fmt(p.price)}</span><p>${esc(p.description)||"Message us for more details."}</p>${p.sold_out?"":`<div><div class="qty"><button id="qm">−</button><span id="qn">1</span><button id="qp">+</button></div></div><button class="btn dark" id="qa">Add to bag</button><button class="btn" id="qs">Share</button><a class="btn fill" id="qo" target="_blank" rel="noopener">Order now on WhatsApp</a>`}</div>`;
+  if(!p.sold_out){const up=()=>{$("qn").textContent=qty;$("qo").href=wa(`Hello HOUSE OF FAVÉ! ❤️\nI'd like to order this from your website:\n\n🛍️ Product: ${p.name}\n💰 Price: ${fmt(p.price)}\n🔢 Quantity: ${qty}\n\nIs it available, and how can I complete my order? ✨`)};
+  $("qs").onclick=()=>{const u=location.href.split("#")[0],t=`${p.name} at House of Favé`;navigator.share?navigator.share({title:t,url:u}).catch(()=>{}):navigator.clipboard.writeText(u).then(()=>{$("qs").textContent="Link copied"})};$("qm").onclick=()=>{qty=Math.max(1,qty-1);up()};$("qp").onclick=()=>{qty++;up()};$("qa").onclick=()=>{add(p.id,qty);$("dlg").close()};up()}
+  $("dlg").showModal()}
+document.addEventListener("click",e=>{const d=e.target.closest("[data-c],[data-o],[data-a],[data-w],[data-m],[data-p]");if(!d)return;const k=d.dataset;
+  if(k.c){cat=k.c;grid()}else if(k.o)show(k.o);else if(k.a)add(k.a);
+  else if(k.w){const id=+k.w;wish=wish.includes(id)?wish.filter(x=>x!==id):[...wish,id];sv("hf_wish",wish);badges();grid()}
+  else if(k.m){cart[k.m]--;if(cart[k.m]<1)delete cart[k.m];cartUI()}else if(k.p){cart[k.p]++;cartUI()}});
+$("q").oninput=grid;$("sort").onchange=grid;$("dx").onclick=()=>$("dlg").close();$("dlg").onclick=e=>{if(e.target===$("dlg"))$("dlg").close()};
+$("cbtn").onclick=()=>$("drawer").classList.add("open");$("cx").onclick=()=>$("drawer").classList.remove("open");
+$("wbtn").onclick=()=>{if(!wish.length)return;$("q").value="";cat="All";const w=all.filter(p=>wish.includes(p.id));$("grid").innerHTML=w.map(p=>`<article class="card"><div class="im" data-o="${p.id}">${p.image?`<img src="${esc(p.image)}" alt="">`:""}</div><div class="b"><h3>${esc(p.name)}</h3><span class="price">${fmt(p.price)}</span></div></article>`).join("");location.hash="shop"};
+$("bk").onsubmit=e=>{e.preventDefault();window.open(wa(`Hello HOUSE OF FAVÉ! ❤️\nI'd like to book an appointment.\n\n👤 Name: ${$("bn").value}\n💅 Service: ${$("bs").value}\n📅 Date: ${$("bd").value}\n⏰ Time: ${$("bt").value}\n📝 Notes: ${$("bo").value||"None"}\n\nPlease confirm if this slot is available. ✨`),"_blank")};
+$("bd").min=new Date().toISOString().split("T")[0];$("yr").textContent=new Date().getFullYear();
+fetch("/api/products").then(r=>r.json()).then(d=>{all=d.map(p=>({...p,price:Number(p.price)}));grid();cartUI()}).catch(()=>{$("grid").innerHTML='<p class="empty">Could not load the collection. Please refresh.</p>'});
+badges();
+$("top2").onclick=()=>scrollTo({top:0,behavior:"smooth"});onscroll=()=>{$("top2").style.display=scrollY>600?"block":"none"};
+new IntersectionObserver((en,ob)=>{if(en[0].isIntersecting){const t=document.createElement("script");t.src="https://www.tiktok.com/embed.js";t.async=true;document.body.appendChild(t);ob.disconnect()}},{rootMargin:"300px"}).observe($("tiktok"));
+</script></body></html>
