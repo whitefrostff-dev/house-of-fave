@@ -135,6 +135,9 @@ const $=id=>document.getElementById(id),fmt=n=>"₦"+Number(n).toLocaleString();
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const wa=t=>`https://wa.me/${WA}?text=${encodeURIComponent(t)}`;
 const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch{return d}},sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+let vid=ld("hf_vid",null);if(!vid){vid=Math.random().toString(36).slice(2)+Date.now().toString(36);sv("hf_vid",vid)}
+const track=(type,name="")=>{try{navigator.sendBeacon("/api/track",new Blob([JSON.stringify({type,name,vid})],{type:"application/json"}))}catch{}};
+try{if(!sessionStorage.getItem("hf_v")){sessionStorage.setItem("hf_v","1");track("visit")}}catch{track("visit")}
 let all=[],cat="All",cart=ld("hf_cart",{}),wish=ld("hf_wish",[]),open=null,qty=1;
 const find=id=>all.find(p=>p.id==id);
 function grid(){
@@ -156,16 +159,16 @@ function add(id,n=1){cart[id]=(cart[id]||0)+n;cartUI();$("drawer").classList.add
 function show(id){const p=find(id);open=p;qty=1;
   $("pm").innerHTML=`${p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}">`:'<div class="ph"></div>'}<div class="t"><span class="tag">${esc(p.category)}</span><h2 style="font-size:2rem">${esc(p.name)}</h2><span class="price" style="font-size:1.3rem">${p.sold_out?"Sold out":fmt(p.price)}</span><p>${esc(p.description)||"Message us for more details."}</p>${p.sold_out?"":`<div><div class="qty"><button id="qm">−</button><span id="qn">1</span><button id="qp">+</button></div></div><button class="btn dark" id="qa">Add to bag</button><button class="btn" id="qs">Share</button><a class="btn fill" id="qo" target="_blank" rel="noopener">Order now on WhatsApp</a>`}</div>`;
   if(!p.sold_out){const up=()=>{$("qn").textContent=qty;$("qo").href=wa(`Hello HOUSE OF FAVÉ! ❤️\nI'd like to order this from your website:\n\n🛍️ Product: ${p.name}\n💰 Price: ${fmt(p.price)}\n🔢 Quantity: ${qty}\n\nIs it available, and how can I complete my order? ✨`)};
-  $("qs").onclick=()=>{const u=location.href.split("#")[0],t=`${p.name} at House of Favé`;navigator.share?navigator.share({title:t,url:u}).catch(()=>{}):navigator.clipboard.writeText(u).then(()=>{$("qs").textContent="Link copied"})};$("qm").onclick=()=>{qty=Math.max(1,qty-1);up()};$("qp").onclick=()=>{qty++;up()};$("qa").onclick=()=>{add(p.id,qty);$("dlg").close()};up()}
+  $("qs").onclick=()=>{const u=location.href.split("#")[0],t=`${p.name} at House of Favé`;navigator.share?navigator.share({title:t,url:u}).catch(()=>{}):navigator.clipboard.writeText(u).then(()=>{$("qs").textContent="Link copied"})};$("qo").onclick=()=>track("order",p.name);$("qm").onclick=()=>{qty=Math.max(1,qty-1);up()};$("qp").onclick=()=>{qty++;up()};$("qa").onclick=()=>{add(p.id,qty);$("dlg").close()};up()}
   $("dlg").showModal()}
 document.addEventListener("click",e=>{const d=e.target.closest("[data-c],[data-o],[data-a],[data-w],[data-m],[data-p]");if(!d)return;const k=d.dataset;
   if(k.c){cat=k.c;grid()}else if(k.o)show(k.o);else if(k.a)add(k.a);
   else if(k.w){const id=+k.w;wish=wish.includes(id)?wish.filter(x=>x!==id):[...wish,id];sv("hf_wish",wish);badges();grid()}
   else if(k.m){cart[k.m]--;if(cart[k.m]<1)delete cart[k.m];cartUI()}else if(k.p){cart[k.p]++;cartUI()}});
 $("q").oninput=grid;$("sort").onchange=grid;$("dx").onclick=()=>$("dlg").close();$("dlg").onclick=e=>{if(e.target===$("dlg"))$("dlg").close()};
-$("cbtn").onclick=()=>$("drawer").classList.add("open");$("cx").onclick=()=>$("drawer").classList.remove("open");
+$("chk").onclick=()=>track("checkout","Bag");$("cbtn").onclick=()=>$("drawer").classList.add("open");$("cx").onclick=()=>$("drawer").classList.remove("open");
 $("wbtn").onclick=()=>{if(!wish.length)return;$("q").value="";cat="All";const w=all.filter(p=>wish.includes(p.id));$("grid").innerHTML=w.map(p=>`<article class="card"><div class="im" data-o="${p.id}">${p.image?`<img src="${esc(p.image)}" alt="">`:""}</div><div class="b"><h3>${esc(p.name)}</h3><span class="price">${fmt(p.price)}</span></div></article>`).join("");location.hash="shop"};
-$("bk").onsubmit=e=>{e.preventDefault();window.open(wa(`Hello HOUSE OF FAVÉ! ❤️\nI'd like to book an appointment.\n\n👤 Name: ${$("bn").value}\n💅 Service: ${$("bs").value}\n📅 Date: ${$("bd").value}\n⏰ Time: ${$("bt").value}\n📝 Notes: ${$("bo").value||"None"}\n\nPlease confirm if this slot is available. ✨`),"_blank")};
+$("bk").onsubmit=e=>{e.preventDefault();track("booking",$("bs").value);window.open(wa(`Hello HOUSE OF FAVÉ! ❤️\nI'd like to book an appointment.\n\n👤 Name: ${$("bn").value}\n💅 Service: ${$("bs").value}\n📅 Date: ${$("bd").value}\n⏰ Time: ${$("bt").value}\n📝 Notes: ${$("bo").value||"None"}\n\nPlease confirm if this slot is available. ✨`),"_blank")};
 $("bd").min=new Date().toISOString().split("T")[0];$("yr").textContent=new Date().getFullYear();
 fetch("/api/products").then(r=>r.json()).then(d=>{all=d.map(p=>({...p,price:Number(p.price)}));grid();cartUI()}).catch(()=>{$("grid").innerHTML='<p class="empty">Could not load the collection. Please refresh.</p>'});
 badges();
